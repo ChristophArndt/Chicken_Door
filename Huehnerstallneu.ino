@@ -187,8 +187,13 @@ void loop()
     //Setup Motor; Sensortür
     lcd_key = read_LCD_buttons();  
     int licht = analogRead(senlicht);
-    
-    doorcheck();
+
+    Serial.println(analogRead(senlicht));
+
+    if (licht < 20){
+       doorcheck();
+    }
+
     
     if (lcd_key == 3) {
       anzeigen();
@@ -198,21 +203,16 @@ void loop()
        lcd.print("tuer oeffnet");
        tueroeffnen();
        lcd.clear();
-       lcd.print("tuer geoeffnet für ca. 1min");
-       delay(20000);
+       lcd.print("tuer geoeffnet");
+       delay(2000);
     }
     if (lcd_key == 2){
        lcd.print("tuer schliest");
        tuerschliest();
        lcd.clear();
-       lcd.print("tuer geschlossen für ca 1min");
-       delay(20000);
+       lcd.print("tuer geschlossen");
+       delay(2000);
     }
-    if (lcd_key == 4) {
-      lcd.print(analogRead(senlicht));
-      delay(1500);
-    }
-    
     lcd.clear();
     delay(300);
 }
